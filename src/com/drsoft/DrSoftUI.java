@@ -54,12 +54,13 @@ public class DrSoftUI extends UI {
 
 		calendar.addComponent(date);
 		Button dateSelect = new Button("Select Date");
+		final DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		final Label dateSelected = new Label("");
 		dateSelect.addClickListener(new Button.ClickListener() {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				dateSelected.setValue("You have selected : " + date.getValue());
+				dateSelected.setValue("You have selected : " + df.format(date.getValue()));
 			}
 		});
 
@@ -84,11 +85,20 @@ public class DrSoftUI extends UI {
 		layout.addComponent(searchByName);
 		searchParam = new Label("Your Search : ");
 		layout.addComponent(searchParam);
+		
+		final VerticalLayout docLayout = new VerticalLayout();
+		docLayout.addComponent(new DoctorsButtons().pMethod());
+		docLayout.setVisible(false);
+		layout.addComponent(docLayout);
+		
 		searchByName.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
 				searchParam.setValue("Your Search : " + searchValue.getValue());
+				docLayout.setVisible(true);
 			}
 		});
+		
+		
 
 		return layout;
 	}
